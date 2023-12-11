@@ -1,39 +1,347 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
- </head>
- <!-- //����JS -->
- <script src = "index.js">
- </script>
-<!-- //����style -->
-<link rel="stylesheet" type="text/css" href="index.css">
- <body> 
-<!-- Ϊ��Ƶ����һ��logo��ʾ��Ƶ�Ĳ���˳�� -->
- <div id="logo" >
-	13
- </div>
- <!--��Ƶʱ��-->
- <div id="videoTime" >
- </div>
-<!-- //����һ������div��ֹ��Ƶ��ɾ����ť�ϸ�-->
-<div id="stage" >
-<!--��һ������һ����Ƶ��������ҳ��-->
-  <video id = 'Video' >  </video>
-<!--<source src="videoMP4/2013������2���Ľ���.mp4" type="video/mp4">-->  
-<!-- ������Ƶ���� -->
-  <audio id = "Audio"> </audio>   
-</div>
-<!-- �ڶ���Ϊ��Ƶ���ò���PLAYY��ͣSTOP��һ��NEXT������ť-->
- <div id="" class="">
-	<input type="button" value="PALY" id="play">
-	<input type="button" value="STOP" id="stop">
-	<input type="button" value="NEXT" id="next">
-	<input type="button" value="PRE"  id="pre">
-	<input type="text"   value="0"    id="videosn"><!-- //ʱ���� -->
-	<input type="text"   value="��������תʱ��" id="jindu">
-	<input type="button" value="��ת" id="sousuo">
-	<input type="button" value="�л���������" id= "switch">
- </div>
- </body>
- </html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            text-align: center;
+			background-image:url('https://pic3.zhimg.com/v2-acab3db0d1c2ac58b7aa93196cd42aee_r.jpg?source=1940ef5c');
+       
+        }
+        input#pre {
+           background-color:dodgerblue;
+	            color:white;
+	            width: 150px;
+	            height: 47px;
+	            border:0;
+	            font-size: 16px;			
+                border-radius: 30px;
+                 left:10px;
+        }
+		input{
+           background-color:dodgerblue;
+	            color:white;
+	            width: 150px;
+	            height: 47px;
+	            border:0;
+	            font-size: 16px;			
+                border-radius: 30px;
+                 left:10px;	
+				 top:500px;
+        }
+    input:hover{
+	background-color: #a54b4a;
+	}
+
+        input#switch {
+            background-color: rgb(30, 60, 0);
+            color: rgb(100, 200, 50);
+        }
+
+        #currentTime {
+            padding: 10px 5px;
+            background-color: red;
+            color: aliceblue;
+            font-size: 2em;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #logo {
+            padding: 10px 5px;
+            background-color: green;
+            color: aliceblue;
+            font-size: 2em;
+            position: absolute;
+            top: 0;
+            right: 0;
+			
+        }
+		div#UI{
+		 position: relative ;
+		top:450px;
+		left:400px;
+		height:170px;
+		width:500px;
+		}
+		div#stage p{
+		 background-color: blue ;
+		 color: white ;
+		 padding: 1px 3px ;
+		 margin: 10px ;
+		 font-size: 1.5em;
+		 cursor: pointer;
+		}
+		div#stage p:hover{
+		background-color: lightblue ;
+		}
+		video#video{
+		width:800px;
+		height:450px;
+		position:absolute;
+		top:0px;
+		left:0px;
+		}
+		div.border{
+		width:800px;
+		height:450px;
+		position:absolute;
+		top:40px;
+		left:250px;
+		border:5px solid #000;
+		box-shadow:6px 8px 6px 6px rgba(0, 0, 0, 0.5);
+		border-radius:10px;
+	}
+	h1{
+	 background-image: url:(https://pic.baike.soso.com/p/20131030/20131030160338-559117572.jpg);
+	border-style:dashed;
+	}
+    </style>
+	<script src="ks.js">
+	</script>
+</head>
+
+<body>
+<h1>江西科技师范大学</h1>
+    <div id="currentTime"></div>
+    <div id="logo"></div>
+    <div class="border" id="stage">
+        <video id="video"></video>
+        <audio id="audio"></audio>
+    </div>
+    <div id="UI">
+        <input type="button" value="pre" id="pre">
+        <input type="button" value="play" id="play">
+        <input type="button" value="stop" id="stop">
+        <input type="button" value="next" id="next">
+        <input type="button" value="切换媒体" id="switch">
+    </div>
+
+</body>
+
+<script>
+    /*****定义全局变量*****/
+	//开启同步代码
+    var Model = {};
+    Model.i = 0;
+    Model.isVideo = true;
+  
+    Model.UI = {};
+    Model.UI.stageDom = document.getElementById("stage");
+    Model.UI.videoDom = document.getElementById("video");
+    Model.UI.audioDom = document.getElementById("audio");
+    Model.UI.preDom = document.getElementById("pre");
+    Model.UI.playDom = document.getElementById("play");
+    Model.UI.stopDom = document.getElementById("stop");
+    Model.UI.nextDom = document.getElementById("next");
+    Model.UI.logoDom = document.getElementById("logo");
+    Model.UI.timeDom = document.getElementById("currentTime");
+    Model.UI.switchDom = document.getElementById("switch");
+
+    Model.UI.videoDom.videoLength = mediaData.videoFiles.length;
+    Model.UI.audioDom.audioLength = mediaData.audioFiles.length;
+
+    Model.UI.videoDom.getURL = function () {
+        return mediaData.videoPath + mediaData.videoFiles[Model.i];
+    }
+    Model.UI.audioDom.getURL = function () {
+        return mediaData.audioPath + mediaData.audioFiles[Model.i].filename;
+    }
+
+      // 第七次作业更新任务1— — — —全屏播放视频
+    // 1.1定义windowsWidth,将文档浏览器的宽度赋值给它
+    //Model.windowsWidth = document.body.clientWidth;
+    // 1.2再将windowsWidth赋值给视频的宽度，达成全屏播放视频的效果
+   // Model.UI.stageDom.style.width = Model.windowsWidth + 'px';
+    //Model.UI.videoDom.style.width = Model.windowsWidth + 'px';
+    //Model.UI.audioDom.style.width = Model.windowsWidth + 'px';
+    //Model.UI.stageDom.style.height = Model.UI.videoDom.clientHeight  + 'px';
+
+    // 第七次作业更新任务2— — — —logo设置
+    // 2.2 修改logo内容
+    Model.showMediaNum = function (i) {
+        let length = null;
+        if (Model.isVideo) {
+            length = Model.UI.videoDom.videoLength;
+        } else {
+            length = Model.UI.audioDom.audioLength;
+        }
+       Model.UI.logoDom.textContent = "NO." + (i + 1) + "/" + length;
+    }
+    // 2.3初始化 Model.i=0
+    Model.showMediaNum(0);
+
+    // 展示时间进度条
+    Model.showTimeUI = function () {
+        let content;
+        if (Model.isVideo) {
+            content = parseInt(Model.UI.videoDom.currentTime) + " s" + "/" + parseInt(Model.UI.videoDom.duration) + " s";
+        } else {
+            content = parseInt(Model.UI.audioDom.currentTime) + " s" + "/" + parseInt(Model.UI.audioDom.duration) + " s";
+        }
+        Model.UI.timeDom.textContent = content;
+    };
+	    // 切换媒体类型的函数
+    Model.switchMediaDom = function () {
+        if (Model.isVideo) {
+            Model.UI.stageDom.removeChild(Model.UI.videoDom);
+            Model.UI.stageDom.appendChild(Model.UI.audioDom);
+        } else {
+            Model.UI.stageDom.removeChild(Model.UI.audioDom);
+            Model.UI.stageDom.appendChild(Model.UI.videoDom);
+        }
+    } ;
+
+    Model.createAudioMenu = function(){
+	  let pDom ;
+	  for(let i=0;i<6;i++){
+	     pDom = document.createElement("p") ;
+         pDom.textContent = "Menu " +(i+1) ;
+         pDom.onclick = function(){
+		   Model.UI.audioDom.currentTime = i * 200 ;
+		 };
+         Model.UI.stageDom.appendChild(pDom);
+	  }
+	
+	};
+	 Model.removeAudioMenu = function(){
+	  let pDom ;
+	      pDom = document.querySelectorAll("div#stage p")
+	  for(let i=0;i<6;i++){
+	    
+         Model.UI.stageDom.removeChild(pDom[i]);
+	  }
+	
+	};
+//--------------------------------------------------
+  
+
+    // Model 
+  Model.init = function(){
+	Model.UI.videoDom.src = Model.UI.videoDom.getURL(0);
+    Model.UI.audioDom.src = Model.UI.audioDom.getURL(0);
+	
+	 // 第七次作业更新任务3— — — —实时视频时间
+   
+	// 第八次作业更新任务1.— — — —将实时播放视频时间放入div中
+    window.setInterval(function () {
+        Model.showTimeUI();
+    }, 1000);
+    // 定义向前按钮
+  
+	Model.UI.preDom.onclick = function () {
+        // 定义局部变量
+        let i = Model.i;
+        let length = null;
+        let file = null;
+        // 判断是视频文件还是音频文件
+        if (Model.isVideo) {
+            length = Model.UI.videoDom.videoLength;
+            file = Model.UI.videoDom;
+        }
+        else {
+            length = Model.UI.audioDom.audioLength;
+            file = Model.UI.audioDom;
+        }
+        // 业务处理
+        if (i == 0) {
+            i = length - 1;
+        }
+        else {
+            i--;
+        }
+        // 2.4 — — — —每次切换视频需要更新目录内容
+        Model.i = i;
+        file.src = file.getURL();
+        file.play();
+    }
+    // 定义播放按钮
+    Model.UI.playDom.onclick = function () {
+        if (Model.isVideo) {
+            Model.UI.videoDom.play();
+        } else {
+            Model.UI.audioDom.play();
+        }
+
+    };
+    // 定义暂停按钮
+    Model.UI.stopDom.onclick = function () {
+
+        if (Model.isVideo) {
+            Model.UI.videoDom.pause();
+        } else {
+            Model.UI.audioDom.pause();
+        }
+    }
+    // 定义向后按钮
+    Model.UI.nextDom.onclick = function () {
+        // 定义局部变量
+        let i = Model.i;
+        let length = null;
+        let file = null;
+        // 判断是视频文件还是音频文件
+        if (Model.isVideo) {
+            length = Model.UI.videoDom.videoLength;
+            file = Model.UI.videoDom;
+        }
+        else {
+            length = Model.UI.audioDom.audioLength;
+            file = Model.UI.audioDom;
+        }
+        // 业务处理
+        if (i == length - 1) {
+            i = 0;
+        }
+        else {
+            i++;
+        }
+        // 2.4 — — — —每次切换视频需要更新目录内容
+        Model.showMediaNum(i);
+        Model.i = i;
+        file.src = file.getURL();
+        file.play();
+    };
+
+
+
+    // 切换媒体
+    Model.UI.switchDom.onclick = function () {
+       
+        if (Model.isVideo) {
+            Model.UI.switchDom.value = "Audio";
+			
+			Model.createAudioMenu();
+        }
+        else {
+            Model.UI.switchDom.value = "Video";
+
+			Model.removeAudioMenu();
+        }
+        
+		Model.switchMediaDom(); 
+		
+		Model.isVideo = !Model.isVideo;
+        Model.i = 0;
+  
+        Model.showMediaNum(Model.i);
+    };
+
+
+	}; //Model.init 结束
+
+    
+
+ Model.init() ;
+ 
+</script>
+
+</html>
