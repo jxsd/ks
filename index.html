@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+ </head>
+ <!-- //引入JS -->
+ <script src = "index.js">
+ </script>
+<!-- //引入style -->
+<link rel="stylesheet" type="text/css" href="index.css">
+ <body> 
+<!-- 为视频添加一个logo显示视频的播放顺序 -->
+ <div id="logo" >
+	13
+ </div>
+ <!--视频时间-->
+ <div id="videoTime" >
+ </div>
+<!-- //设置一个父类div防止视频被删除后按钮上浮-->
+<div id="stage" >
+<!--第一步先让一个视频出现在网页中-->
+  <video id = 'Video' >  </video>
+<!--<source src="videoMP4/2013东西方2马的交锋.mp4" type="video/mp4">-->  
+<!-- 设置音频播放 -->
+  <audio id = "Audio"> </audio>   
+</div>
+<!-- 第二步为视频设置播放PLAYY暂停STOP下一个NEXT三个按钮-->
+ <div id="" class="">
+	<input type="button" value="PALY" id="play">
+	<input type="button" value="STOP" id="stop">
+	<input type="button" value="NEXT" id="next">
+	<input type="button" value="PRE"  id="pre">
+	<input type="text"   value="0"    id="videosn"><!-- //时间条 -->
+	<input type="text"   value="请输入跳转时间" id="jindu">
+	<input type="button" value="跳转" id="sousuo">
+	<input type="button" value="切换播放内容" id= "switch">
+ </div>
+ </body>
+ </html>
