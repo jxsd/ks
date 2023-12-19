@@ -17,31 +17,11 @@
 			background-image:url('https://pic3.zhimg.com/v2-acab3db0d1c2ac58b7aa93196cd42aee_r.jpg?source=1940ef5c');
        
         }
-        input#pre {
-           background-color:dodgerblue;
-	            color:white;
-	            width: 150px;
-	            height: 47px;
-	            border:0;
-	            font-size: 16px;			
-                border-radius: 30px;
-                 left:10px;
-        }
-		input{
-           background-color:dodgerblue;
-	            color:white;
-	            width: 150px;
-	            height: 47px;
-	            border:0;
-	            font-size: 16px;			
-                border-radius: 30px;
-                 left:10px;	
-				 top:500px;
-        }
-    input:hover{
-	background-color: #a54b4a;
-	}
-
+		div#pic{
+            position:absolute;
+		    top:50px;
+		    left:300px;
+		}
         input#switch {
             background-color: rgb(30, 60, 0);
             color: rgb(100, 200, 50);
@@ -53,8 +33,8 @@
             color: aliceblue;
             font-size: 2em;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 150px;
+            left: 160px;
         }
         #logo {
             padding: 10px 5px;
@@ -62,14 +42,41 @@
             color: aliceblue;
             font-size: 2em;
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 150px;
+            right:320px;
 			
         }
-		div#UI{
+		input{
+		  /* 文字颜色 */
+      color: #0099CC; 
+      /* 清除背景色 */
+      background: transparent; 
+      /* 边框样式、颜色、宽度 */
+      border: 2px solid #0099CC;
+      /* 给边框添加圆角 */
+      border-radius: 6px; 
+      /* 字母转大写 */
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      text-decoration: none;
+      text-transform: uppercase;
+		}
+		input:hover {
+      background-color: #008CBA;
+      color: white;
+}
+		#UI{
 		 position: relative ;
-		top:450px;
-		left:400px;
+		top:250px;
+		left:-150px;
 		height:170px;
 		width:500px;
 		}
@@ -95,8 +102,8 @@
 		width:800px;
 		height:450px;
 		position:absolute;
-		top:40px;
-		left:250px;
+		top:200px;
+		left:200px;
 		border:5px solid #000;
 		box-shadow:6px 8px 6px 6px rgba(0, 0, 0, 0.5);
 		border-radius:10px;
@@ -105,6 +112,11 @@
 	 background-image: url:(https://pic.baike.soso.com/p/20131030/20131030160338-559117572.jpg);
 	border-style:dashed;
 	}
+	h2{
+      position:absolute;
+		top:200px;
+		right:80px;
+	}
     </style>
 	<script src="ks.js">
 	</script>
@@ -112,17 +124,26 @@
 
 <body>
 <h1>江西科技师范大学</h1>
+<div id="pic" class="">
+<img src="F:/Git/HWS/images/myFace1.jpg" width="120" height="150" border="0" alt="">
+<img src="F:/Git/HWS/images/myFace2.jpg" width="120" height="150" border="0" alt="">
+<img src="F:/Git/HWS/images/myFace3.jpg" width="120" height="150" border="0" alt="">
+<img src="F:/Git/HWS/images/myFace4.jpg" width="120" height="150" border="0" alt="">
+<img src="F:/Git/HWS/images/myFace5.jpg" width="120" height="150" border="0" alt="">
+
+</div>
     <div id="currentTime"></div>
     <div id="logo"></div>
+	<h2>本组作业音频为第五个</h2>
     <div class="border" id="stage">
         <video id="video"></video>
         <audio id="audio"></audio>
     </div>
     <div id="UI">
-        <input type="button" value="pre" id="pre">
-        <input type="button" value="play" id="play">
-        <input type="button" value="stop" id="stop">
-        <input type="button" value="next" id="next">
+        <input type="button" value="pre" id="pre"></br>
+        <input type="button" value="play" id="play"></br>
+        <input type="button" value="stop" id="stop"></br>
+        <input type="button" value="next" id="next"></br>
         <input type="button" value="切换媒体" id="switch">
     </div>
 
@@ -156,7 +177,6 @@
     Model.UI.audioDom.getURL = function () {
         return mediaData.audioPath + mediaData.audioFiles[Model.i].filename;
     }
-
       // 第七次作业更新任务1— — — —全屏播放视频
     // 1.1定义windowsWidth,将文档浏览器的宽度赋值给它
     //Model.windowsWidth = document.body.clientWidth;
@@ -205,9 +225,9 @@
 	  let pDom ;
 	  for(let i=0;i<6;i++){
 	     pDom = document.createElement("p") ;
-         pDom.textContent = "Menu " +(i+1) ;
+         pDom.textContent = mediaData.audioFiles[4].title[i] ;
          pDom.onclick = function(){
-		   Model.UI.audioDom.currentTime = i * 200 ;
+		   Model.UI.audioDom.currentTime = mediaData.audioFiles[4].time[i] ;
 		 };
          Model.UI.stageDom.appendChild(pDom);
 	  }
