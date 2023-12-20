@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>20213577-20231011</title>
+  <!-- //第二次修改:添加视频循环功能，添加一个div修改视频的水印（遮盖），div可以实现显示视频的顺序；添加一个时间进度条，将videosn文本显示进度时间； -->
+   <script type="text/javascript">
+   <!--
+    var model = {};
+	 model.video = ['2013东西方2马的交锋.mp4','funDogs.mp4','上瘾.mp4','世界冠军江西弃婴.mp4','农民吹牛.mp4','逗八哥狗.mp4'];
+   //-->
+   </script>
+   <!-- 第三步调整视频大小和按钮-->
+   <style type="text/css">
+	 div#logo{
+	 background:red;
+	 font-size:2em;
+	 position:absolute;
+	 right:10px;
+	 top :0px;
+	 }
+	 div#videoTime{
+	 background:green;
+	 font-size:2em;
+	 position:absolute;
+	 left:10px;
+	 top :0px;
+	 }
+	 #video{
+	 }
+   </style>
+ </head>
+ <body>
+ <!-- 为视频添加一个logo显示视频的播放顺序 -->
+ <div id="logo" >
+	13
+ </div>
+
+ <!--视频时间-->
+ <div id="videoTime" >
+	
+ </div>
+
+ <!--第一步先让一个视频出现在网页中-->
+  <video id = 'video' >  
+      <source src="videoMP4/2013东西方2马的交锋.mp4" type="video/mp4">
+  </video>
+<!-- 第二步为视频设置播放PLAYY暂停STOP下一个NEXT三个按钮-->
+ <div id="" class="">
+	<input type="button" value="PALY" id="play">
+	<input type="button" value="STOP" id="stop">
+	<input type="button" value="NEXT" id="next">
+	<input type="button" value="PRE"  id="pre">
+	<input type="text"   value="0"    id="videosn">
+	<input type="text"   value="请输入跳转时间"    id="jindu">
+	<input type="button" value="跳转" id="sousuo">
+ </div>
+ </body>
+ <!--难点，为三个按钮利用JavaScript赋值函数方法使按钮可以实现网页操作-->
+ <script type="text/javascript">
+ <!--
+ //定义model.UI减少全局变量的定义
+    model.UI = {};
+    model.UI.videoDom = document.getElementById('video');
+	model.UI.playDom  = document.getElementById('play');
+	model.UI.stopDom  = document.getElementById('stop');
+	model.UI.nextDom  = document.getElementById('next');
+	model.UI.presDom   = document.getElementById('pre');
+    model.UI.sousuoDom   = document.getElementById('sousuo');
+	model.UI.jinduDom   = document.getElementById('jindu');
+	model.UI.timeDom   = document.getElementById('videoTime'); 
+	//抓取logo，便于利用动态赋值
+	model.UI.logodom = document.getElementById('logo');
+	//抓取网页的宽度
+	model.screenWidth = document.body.clientWidth;
+	//显示视频进度
+	model.UI.videosns = document.getElementById('videosn');
+	model.i=0;
+
+	//将视频的value赋值给logo;注意在javascript中不是函数的内容只会运行一次，而函数内容可以多次调用运行，这就是为啥logodom.textContent = "NO." + i + "/" + video.length ;只写上面这一句代码只会运行NO.1/5;
+	//定义方法showvideoCurrentTime显示视频进度
+	showvideoCurrentTime = function(i){
+		model.UI.logodom.textContent = "NO." +(model.i+1) + "/" + model.video.length ;
+	};
+   showvideoCurrentTime(0);
+
+   //将视频的大小按照屏幕的宽度进行变化
+    model.UI.videoDom.style.width = model.screenWidth + "px";
+
+	//每1秒实现videosns文本框显示时间也就是视频进度
+    window.setInterval(function(){
+		let textTime=parseInt(model.UI.videoDom.currentTime)+"s" ;
+		textTime += "/" + parseInt(model.UI.videoDom.duration)+"s";
+	    model.UI.timeDom.textContent = textTime;
+	},1000);
+   
+   //实现视频跳转,在jindu文本框输入跳转时间,再点击跳转实现视频跳转
+   model.UI.sousuoDom.onclick=function(){
+			model.UI.videoDom.currentTime=parseFloat(mdoel.UI.jinduDom.value);//因为jindud.value的值是字符串，但是currentTime只能是数字所以需要强制转换
+			model.UI.videoDom.play();
+			videosns.value=parseInt(model.UI.videoDom.currentTime)+"s";
+		};
+
+	model.UI.playDom.onclick = function(){
+	model.UI.videoDom.play();
+	};
+
+	model.UI.stopDom.onclick = function(){
+	model.UI.videoDom.pause();
+	};
+	
+
+//下一个视频，当i=数组长度时视频回到第一个
+	model.UI.nextDom.onclick = function(){
+		let i = model.i;
+		i++;
+		if(i ==model.video.length){
+		i=0;
+		}
+    model.UI.videoDom.src="videoMP4/"+model.video[i] ;
+	model.UI.videoDom.play();
+	showvideoCurrentTime();	
+	model.i = i;
+	 };
+
+//对视频进行前一个播放，当视频到达第一个再前进时,将播放最后一个视频
+    model.UI.presDom.onclick = function(){
+		let i = model.i
+		if(i>0){ 
+				 i--;	
+			    }
+		  else{
+			  i=model.video.length-1;
+			  }
+		 model.UI.videoDom.src="videoMP4/"+model.video[i] ;
+	     model.UI.videoDom.play();
+		 showvideoCurrentTime();
+		model.i = i;
+		};	
+ //-->
+ </script>
+</html>

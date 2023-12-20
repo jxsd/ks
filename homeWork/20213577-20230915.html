@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>第二次linu学习</title>
+ </head>
+ <body>
+  <h1>简介</h1>
+   <p>使用tar - xf 命令将指定压缩文件包(videoClips)解压，同时使用浏览器播放指定文件，最后删除压缩文件包</p>
+  <h1>命令</h1>
+   <div>
+	 1. tar -xf videoClips #解压videoClips压缩包到压缩包所在当前文件夹<br>
+	 2. ls videomp4 #查看videomp4文件夹中的内容<br>
+	 3. rm videoClips #删除该压缩包<br>
+	 <a href="F:/Git/huangwensheng/20230915-20213577-黄文胜.txt">日志（查看gitbash导出的指令）</a><br>
+     <a href="F:/Git/huangwensheng/videoMP4/2013东西方2马的交锋.mp4">2013东西方2马的交锋</a><br>
+	 <a href="F:/Git\huangwensheng/videoMP4/funDogs.mp4">funDogs</a><br>
+	 <a href="F:/Git\huangwensheng/videoMP4/逗八哥狗.mp4">逗八哥狗</a><br>
+	 <a href="F:/Git\huangwensheng/videoMP4/农民吹牛.mp4">农民吹牛</a><br>
+	 <a href="F:/Git\huangwensheng/videoMP4/上瘾.mp4">上瘾</a><br>
+	 <a href="F:/Git\huangwensheng/videoMP4/世界冠军江西弃婴.mp4">世界冠军江西弃婴</a><br>
+   </div>
+  <h1>总结</h1>
+  <p>
+  在本次实验中除了新增加指令ter -xf，其他指令基本已经有了较熟练的手感，同时空闲时间本人也尝试阅读了linux的英文书籍了解了在Linux中ctrl+c和ctrl+v已经失去了作用，你可以依靠鼠标左键长按选中或是左键双击选中然后鼠标滚轮按压复制。1.pwd指令显示当前所在文件位置（绝对路径）、
+2.cd指令切换到其他目录或是文件
+3.cp(copy)复制文件或是目录到其他文件（目录的复制还没尝试等下可以试试）
+补充经过尝试发现如果要复制一个目录到另一个目录必须使用-r
+实例1复制文件
+流程：cp 源文件（被复制）目标文件（复制的位置）：cp keli.jpg/try2(注意此时电脑已经打开了try文件夹，可用pwd查看)
+实例2复制目录
+流程：此时电脑已打开git目录（注意要打开被复制目录上一级目录，如果此时还是try目录则汇报错误：cannot stat 'try': No such file or directory，因为在try目录中没有try目录），要求复制try目录到try2中 cp -r try ./try2(如果不加.会报 missing destination file operand after 'try/try2'，当前目录，就没有操作的目标，因此就会提示错误)
+注意经过测试在/目录下对其子目录进行复制需要.但是对其子目录中的文件进行复制却不需要.
+4.ls(list)显示当前目录下的文件名称和文件类型
+5.rm(remove)删除当前文件（目录的话我还没删除过，删除有很多形式可以展开）
+rm -r 可以可以递归删除，即如果后面跟的是一个目录做为参数，则会递归删除整个目录中的所有子目录和文件，不过注意打开的目录必须包含被删除的目录及pwd显示的绝对路径是/（根目录），删除根目录的try2子目录）：rm - r try2
+rm * 只能删除目录下的文件但是不能删除文件夹，rm不能对文件夹（目录）进行删除，rm -r可以。
+6.tab键非常好用可以补齐文件名不用全部打完，指令也可以补完如history
+7.history > 20213577.text 这个指令可以把历史的命令操作直接转换成文本文件
+8.mkdir 该指令可以创建文件夹即目录
+9.touch可以在指定的cd的文件夹中创建文件
+总结gitbash对文件进行删除复制时必须保证cd(切换到被操纵文件的上一级目录，否则会报无操作文件的错误)，还有对目录进行操作时最好加上.这个符号告诉计算机是.前面的目录（文件夹）   
+  </p>
+ </body>
+</html>
